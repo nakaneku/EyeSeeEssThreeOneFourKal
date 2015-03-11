@@ -9,6 +9,7 @@ public class UserInputHandler {
 		UserInputHandler userInputHandler = new UserInputHandler();
 		userInputHandler.mainLoop();
 		System.out.println("Hello world");
+		System.out.println("test");
 		
 
 	}
