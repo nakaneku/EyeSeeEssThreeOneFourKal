@@ -10,7 +10,6 @@ public class UserInputHandler {
 		userInputHandler.mainLoop();
 		System.out.println("Hello world");
 		System.out.println("test");
-		
 
 	}
 	
