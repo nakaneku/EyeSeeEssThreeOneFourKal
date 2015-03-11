@@ -8,6 +8,7 @@ public class UserInputHandler {
 	public static void main(String[] args) {
 		UserInputHandler userInputHandler = new UserInputHandler();
 		userInputHandler.mainLoop();
+		System.out.println("Hello world");
 		
 
 	}
