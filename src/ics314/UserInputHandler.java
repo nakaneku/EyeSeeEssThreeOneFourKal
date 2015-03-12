@@ -1,6 +1,7 @@
 package ics314;
 
 import java.util.Scanner;
+import java.io.*;
 
 public class UserInputHandler {
 	private Scanner scan;
@@ -82,17 +83,37 @@ public class UserInputHandler {
 			System.out.print("Select timezone: ");
 			Integer timeZone = scan.nextInt();
 			if (timeZone.equals(1)) {
-				tmz = "Pacific/Honolulu:";
+				tmz = "Pacific/Honolulu";
 			}
 		}
 		
 		else if(option.equals(2)){
-			System.out.println("Export Output File Menu");
+			try {
+				 
+				PrintWriter writer = new PrintWriter("calinput.ics");
+				
+				writer.println("BEGIN:VCALENDAR");
+				writer.println("VERSION:2.0");
+				writer.println("BEGIN:VEVENT");
+				writer.println("DTSTART;TZID=" + tmz + ":" + dtstart);
+				writer.println("DTEND;TZID=" + tmz + ":" + dtend);
+				writer.println("UID:6r3rq0kvkq1ue4jlv5f71c1dr8@google.com");
+				writer.println("LOCATION:" + location);
+				writer.println("SUMMARY:" + summary);
+				writer.println("PRIORITY:" + priority);
+				writer.println("CLASS:" + classification);
+				writer.println("END:VEVENT");
+				writer.println("END:VCALENDAR");
+				writer.close();
+		 
+		    	} catch (IOException e) {
+			      e.printStackTrace();
+			}
 		}
 		
 		else if(option.equals(3)){
-			System.out.println("DTSTART;TZID=" + tmz + dtstart);
-			System.out.println("DTEND;TZID=" + tmz + dtend);
+			System.out.println("DTSTART;TZID=" + tmz + ":" + dtstart);
+			System.out.println("DTEND;TZID=" + tmz + ":" + dtend);
 			System.out.println("LOCATION:" + location);
 			System.out.println("SUMMARY:" + summary);
 			System.out.println("PRIORITY:" + priority);
