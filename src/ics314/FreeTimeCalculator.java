@@ -22,6 +22,10 @@ public class FreeTimeCalculator {
 		ftc.run(args); //Just to get out of static context
 	}
 	
+	public int add(int a, int b) {
+		return a + b;
+	}
+	
 	public void run(String[] args){
 		String[] filenames = args;
 		
@@ -64,6 +68,18 @@ public class FreeTimeCalculator {
 		}
 		return icsFileProperties;
 		
+	}
+	
+	public void freeTime(List<ICSEvent> list) {
+			create ics file from 12 to s1
+			while icsList.length > 1
+			    e1 = earliest ending event
+			    s2 = earliest starting event
+			    if e1 >= s2, reinsert new range from s1 to e2
+			        remove s1 to e1, remove s2 to e2
+			    else
+			        create .ics file with range e1 to s2, remove s1 to e1 from list (earliest time range)
+			 take e2, create ics file from e2 to 11:59 pm
 	}
 
 }
