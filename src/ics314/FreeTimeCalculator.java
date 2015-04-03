@@ -54,21 +54,23 @@ public class FreeTimeCalculator {
 			String startTime = getPropertyWithPrefix(event, "DTSTART");
 			String endTime = getPropertyWithPrefix(event, "DTEND");
 			
-			Calendar c1 = Calendar.getInstance(); //Replace with calling Ken's str to cal function
-			Calendar c2 = Calendar.getInstance();
-			
+			Calendar c1 = ICSEvent.convertICSDateToCal(startTime);
+			Calendar c2 = ICSEvent.convertICSDateToCal(endTime);
 			ICSEvent ie = new ICSEvent(c1, c2);
 			ie.tmz = timezone;
 			ie.eventProps = event;
 			icsEvents.add(ie);
 			
+			System.out.println(ie);
+			System.out.println();
 			
-			System.out.println(eventPropertyToString(event));
+			
 		}
 		
 		//Call mark algorithm pass icsEvents
 		//get back list of ics free time Events and pass to writefree time.
 		
+		icsEvents = TesterClass.freeTime(icsEvents);
 		writeFreeTime(icsEvents);
 		
 	}
@@ -122,10 +124,10 @@ public class FreeTimeCalculator {
 		return null; //handle error here.
 	}
 	
-	public static void writeFreeTime(List<ICSEvent> events){
+	public void writeFreeTime(List<ICSEvent> events){
 		int countFreeTimeEventNum = 0;
 		for(ICSEvent event : events){
-			String tmz = event.tmz;
+			String tmz = timezone;
 			String dtstart = ICSEvent.calToStr(event.start);
 			String dtend = ICSEvent.calToStr(event.end);
 			
@@ -170,16 +172,6 @@ public class FreeTimeCalculator {
 	}
 	
 	
-//	public void freeTime(List<ICSEvent> list) {
-//			create ics file from 12 to s1
-//			while icsList.length > 1
-//			    e1 = earliest ending event
-//			    s2 = earliest starting event
-//			    if e1 >= s2, reinsert new range from s1 to e2
-//			        remove s1 to e1, remove s2 to e2
-//			    else
-//			        create .ics file with range e1 to s2, remove s1 to e1 from list (earliest time range)
-//			 take e2, create ics file from e2 to 11:59 pm
-//	}
+
 
 }

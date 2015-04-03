@@ -90,7 +90,7 @@ public class ICSEvent {
 			secondString = "" + second;
 		}
 		
-		return year+minuteString+dayString+"T"+hourString+minuteString+secondString+"Z";
+		return year+monthString+dayString+"T"+hourString+minuteString+secondString+"Z";
 		
 	}
 }
