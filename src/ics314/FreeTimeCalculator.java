@@ -2,8 +2,10 @@ package ics314;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -52,8 +54,22 @@ public class FreeTimeCalculator {
 			String startTime = getPropertyWithPrefix(event, "DTSTART");
 			String endTime = getPropertyWithPrefix(event, "DTEND");
 			
+			Calendar c1 = Calendar.getInstance(); //Replace with calling Ken's str to cal function
+			Calendar c2 = Calendar.getInstance();
+			
+			ICSEvent ie = new ICSEvent(c1, c2);
+			ie.tmz = timezone;
+			ie.eventProps = event;
+			icsEvents.add(ie);
+			
+			
 			System.out.println(eventPropertyToString(event));
 		}
+		
+		//Call mark algorithm pass icsEvents
+		//get back list of ics free time Events and pass to writefree time.
+		
+		writeFreeTime(icsEvents);
 		
 	}
 	
@@ -96,7 +112,7 @@ public class FreeTimeCalculator {
 		}
 	}
 	
-	public String getPropertyWithPrefix(HashMap<String,String> event, String propertyPrefix){
+	public static String getPropertyWithPrefix(HashMap<String,String> event, String propertyPrefix){
 		Set<String> keys = event.keySet();
 		for(String key : keys){
 			if(key.startsWith(propertyPrefix)){
@@ -106,6 +122,30 @@ public class FreeTimeCalculator {
 		return null; //handle error here.
 	}
 	
+	public static void writeFreeTime(List<ICSEvent> events){
+		int countFreeTimeEventNum = 0;
+		for(ICSEvent event : events){
+			String tmz = event.tmz;
+			String dtstart = ICSEvent.calToStr(event.start);
+			String dtend = ICSEvent.calToStr(event.end);
+			
+			
+			try(PrintWriter writer = new PrintWriter("freetime" + countFreeTimeEventNum +".ics")) {
+				writer.println("BEGIN:VCALENDAR");
+				writer.println("VERSION:2.0");
+				writer.println("BEGIN:VEVENT");
+				writer.println("DTSTART;TZID=" + tmz + ":" + dtstart);
+				writer.println("DTEND;TZID=" + tmz + ":" + dtend);
+				writer.println("SUMMARY:" + "Free Time");
+				writer.println("END:VEVENT");
+				writer.println("END:VCALENDAR");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			countFreeTimeEventNum++;
+		}
+	}
 	
 	public HashMap<String, String> parse(String filename){
 		HashMap<String, String> icsFileProperties = new HashMap<String, String>();
