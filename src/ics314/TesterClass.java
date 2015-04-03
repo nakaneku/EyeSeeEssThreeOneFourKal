@@ -9,8 +9,8 @@ public class TesterClass {
 
 	public static void main(String[] args) {
 		CalComparator comparator = new CalComparator();
-		Calendar calendarStart1 = new GregorianCalendar(2015, 3, 1, 3, 0 , 0); //Apr 1
-		Calendar calendarEnd1 =   new GregorianCalendar(2015, 3, 1, 5, 0, 0);
+		Calendar calendarStart1 = new GregorianCalendar(2015, 3, 1, 3, 0, 0); //Apr 1
+		Calendar calendarEnd1 =   new GregorianCalendar(2015, 3, 1, 3, 0, 0);
 		Calendar calendarStart2 = new GregorianCalendar(2015, 3, 1, 1, 0, 0); //Apr 2
 		Calendar calendarEnd2 =   new GregorianCalendar(2015, 3, 1, 2, 0, 0);
 		Calendar calendarStart3 = new GregorianCalendar(2015, 3, 1, 4, 0, 0); //Apr 3
@@ -33,6 +33,8 @@ public class TesterClass {
 		testConvert();
 		events = freeTime(events);
 		System.out.println(events);
+		
+	    //System.out.println(calendarStart1.equals(calendarEnd1));
 	}
 	
 	public static ICSEvent testConvert() {
