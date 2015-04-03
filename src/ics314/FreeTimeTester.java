@@ -87,21 +87,21 @@ public class FreeTimeTester {
 	}
 		
 	@Test
-	public void test2() {
+	public void ICSEventConvertICSDateToCaltest2() {
 	  String icsDate = "20150217T200000Z";
 	  Calendar testCal1 = new GregorianCalendar(2015,1,17,20,0,0);
 	  assertEquals(testCal1, ICSEvent.convertICSDateToCal(icsDate));
 	}
 	
 	@Test
-	public void test3() {
+	public void ICSEventConvertICSDateToCaltest3() {
 		  String icsDate = "20151225T230000Z";
 		  Calendar testCal1 = new GregorianCalendar(2015,11,25,23,0,0);
 		  assertEquals(testCal1, ICSEvent.convertICSDateToCal(icsDate));
 		 }
 	
 	@Test
-	public void test4() {
+	public void ICSEventConvertICSDateToCaltest4() {
 		  String icsDate = "20160101T210000Z";
 		  Calendar testCal1 = new GregorianCalendar(2016,0,01,21,0,0);
 		  assertEquals(testCal1, ICSEvent.convertICSDateToCal(icsDate));
