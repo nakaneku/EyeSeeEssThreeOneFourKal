@@ -124,19 +124,29 @@ public class FreeTimeCalculator {
 		return null; //handle error here.
 	}
 	
+	public String generateUID(){
+		String UID = "";
+		Calendar cal = Calendar.getInstance();
+		UID = "GRAPES";
+		UID += cal.getTimeInMillis();
+		UID += "@TeamGrape";
+		return UID;
+		
+	}
 	public void writeFreeTime(List<ICSEvent> events){
 		int countFreeTimeEventNum = 0;
 		for(ICSEvent event : events){
 			String tmz = timezone;
 			String dtstart = ICSEvent.calToStr(event.start);
 			String dtend = ICSEvent.calToStr(event.end);
-			
+			String UID = generateUID();
 			
 			try(PrintWriter writer = new PrintWriter("freetime" + countFreeTimeEventNum +".ics")) {
 				writer.println("BEGIN:VCALENDAR");
 				writer.println("VERSION:2.0");
 				writer.println("BEGIN:VEVENT");
 				writer.println("DTSTART;TZID=" + tmz + ":" + dtstart);
+				writer.println("UID:" + UID);
 				writer.println("DTEND;TZID=" + tmz + ":" + dtend);
 				writer.println("SUMMARY:" + "Free Time");
 				writer.println("END:VEVENT");
