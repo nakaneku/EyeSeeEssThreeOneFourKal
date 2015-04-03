@@ -21,6 +21,7 @@ public class FreeTimeCalculator {
 		
 		FreeTimeCalculator ftc = new FreeTimeCalculator();
 		ftc.run(args); //Just to get out of static context
+		
 	}
 	
 	public int add(int a, int b) {
@@ -127,6 +128,7 @@ public class FreeTimeCalculator {
 		return icsFileProperties;
 		
 	}
+	
 	
 //	public void freeTime(List<ICSEvent> list) {
 //			create ics file from 12 to s1

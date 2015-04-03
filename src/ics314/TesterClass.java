@@ -27,7 +27,19 @@ public class TesterClass {
 		events.add(i); // Apr 4
 		events.add(h); // Apr 3
 		events.sort(comparator);
-		System.out.println(events);
+		//System.out.println(events);
+		
+		System.out.println();
+		testConvert();
+	}
+	
+	public static ICSEvent testConvert() {
+		ICSEvent constructorTest = new ICSEvent("20150508T183000Z", "20150111T190000Z");
+		List<ICSEvent> events2 = new ArrayList<ICSEvent>();
+		events2.add(constructorTest);
+		System.out.println(events2);
+		
+		return constructorTest;
 	}
 
 }
