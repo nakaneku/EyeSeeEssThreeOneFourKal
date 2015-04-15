@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 
-public class ImageFileNameObtainer {
+public class ICSFileNameObtainer {
 	@SuppressWarnings("all")
 	public static void main(String[] args){
-		List<String> imageFileNames = getListOfImageFileNames("./images");
+		List<String> imageFileNames = getListOfImageFileNames("");
 		System.out.println(imageFileNames);
 		
 		
@@ -21,7 +21,7 @@ public class ImageFileNameObtainer {
 		String[] fileNames = f.list();
 		
 		List<String> imageFileNames = new ArrayList<String>(10);
-		String r = "image_.*\\.jpg";
+		String r = ".*\\.ics";
 		Pattern p = Pattern.compile(r);
 		
 		for(String s : fileNames){
