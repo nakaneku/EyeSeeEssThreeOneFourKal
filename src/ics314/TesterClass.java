@@ -79,7 +79,7 @@ public class TesterClass {
 		if(list.get(0).end.get(Calendar.HOUR_OF_DAY) < 24) {
 			rlist.add(new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).end.get(Calendar.HOUR_OF_DAY), 
 					list.get(0).end.get(Calendar.MINUTE), list.get(0).end.get(Calendar.SECOND)), 
-					new GregorianCalendar(year, month, day, 23, 59, 59)));
+					new GregorianCalendar(year, month, day, 24, 0, 0)));
 		}
 		return rlist;
 	}

@@ -133,6 +133,10 @@ public class FreeTimeCalculator {
 		
 	}
 	public void writeFreeTime(List<ICSEvent> events){
+		writeFreeTime(events, "freetime");
+	}
+	
+	public void writeFreeTime(List<ICSEvent> events, String filePrefix){
 		int countFreeTimeEventNum = 0;
 		for(ICSEvent event : events){
 			String tmz = timezone;
@@ -140,7 +144,7 @@ public class FreeTimeCalculator {
 			String dtend = ICSEvent.calToStr(event.end);
 			String UID = generateUID();
 			
-			try(PrintWriter writer = new PrintWriter("freetime" + countFreeTimeEventNum +".ics")) {
+			try(PrintWriter writer = new PrintWriter(filePrefix + countFreeTimeEventNum +".ics")) {
 				writer.println("BEGIN:VCALENDAR");
 				writer.println("VERSION:2.0");
 				writer.println("BEGIN:VEVENT");

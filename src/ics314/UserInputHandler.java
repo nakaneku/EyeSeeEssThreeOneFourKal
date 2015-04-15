@@ -3,7 +3,6 @@ package ics314;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -151,10 +150,35 @@ public class UserInputHandler {
 			System.out.println(personOneFreeTimeList);
 			System.out.println(personTwoFreeTimeList + "\n");
 			
+			List<ICSEvent> p1BusyTime = TesterClass.freeTime(personOneFreeTimeList);
+			List<ICSEvent> p2BusyTime = TesterClass.freeTime(personTwoFreeTimeList);
+			
+			List<ICSEvent> combinedBusyTime = combineList(p1BusyTime, p2BusyTime);
+//			combinedBusyTime.addAll(p1BusyTime);
+//			combinedBusyTime.addAll(p2BusyTime);
+			
+			combinedBusyTime.sort(comparator);
+			
+			List<ICSEvent> combinedFreeTime = TesterClass.freeTime(combinedBusyTime);
+			
+			ftcalc.writeFreeTime(combinedFreeTime, "MutualFreeTimes");
+			
 		}
 		else{
 			System.out.println("Exiting Program");
 			System.exit(0);
 		}
+	}
+	
+	private List<ICSEvent> combineList(List<ICSEvent> l1, List<ICSEvent> l2){
+		List<ICSEvent> combined = new ArrayList<ICSEvent>();
+		for(ICSEvent e : l1){
+			combined.add(e);
+		}
+		
+		for(ICSEvent e : l2){
+			combined.add(e);
+		}
+		return combined;
 	}
 }
