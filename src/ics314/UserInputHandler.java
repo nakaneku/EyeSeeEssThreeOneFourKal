@@ -1,7 +1,11 @@
 package ics314;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
-import java.io.*;
 
 public class UserInputHandler {
 	private Scanner scan;
@@ -12,6 +16,8 @@ public class UserInputHandler {
 	private String dtstart;
 	private String dtend;
 	private String tmz;
+	private FreeTimeCalculator ftcalc;
+	private CalComparator comparator;
 	
 	public static void main(String[] args) {
 		UserInputHandler userInputHandler = new UserInputHandler();
@@ -20,6 +26,8 @@ public class UserInputHandler {
 	
 	public UserInputHandler(){
 		scan = new Scanner(System.in);
+		ftcalc = new FreeTimeCalculator();
+		comparator = new CalComparator();
 	}
 	
 	private void mainLoop(){
@@ -29,6 +37,7 @@ public class UserInputHandler {
 		while(programIsRunning){
 			printMainOptions();
 			userInput = scan.next();
+			scan.nextLine();
 			userOption = parseUserInput(userInput);
 			processUserInput(userOption);
 		}
@@ -40,8 +49,11 @@ public class UserInputHandler {
 		String s = "1) Create a new Event\n"
 				+ "2) Print OutputFile\n"
 				+ "3) Test print\n"
-				+ "4) Exit Program\n";
+				+ "4) Find free time, not implemented\n"
+				+ "5) Find mutual free times\n"
+				+ "6) Exit Program\n";
 		System.out.println(s);
+		System.out.print("Select an option: ");
 	}
 	
 	private Integer parseUserInput(String input){
@@ -120,6 +132,26 @@ public class UserInputHandler {
 			System.out.println("CLASS:" + classification);
 		}
 		
+		else if(option.equals(5)) {
+			//Person one files
+			System.out.println("Enter person 1's free time files(separate by single space): ");
+			String personOneFreeTimes = scan.nextLine();
+			String[] personOneTimesSeparated = personOneFreeTimes.split(" ");
+			List<ICSEvent> personOneFreeTimeList = ftcalc.convertFilenameToICSEvent(personOneTimesSeparated);
+			
+			//Person two files
+			System.out.println("Enter person 2's free time files(separate by single space): ");
+			String personTwoFreeTimes = scan.nextLine();
+			String[] personTwoTimesSeparated = personTwoFreeTimes.split(" ");
+			List<ICSEvent> personTwoFreeTimeList = ftcalc.convertFilenameToICSEvent(personTwoTimesSeparated);
+			
+			//Sort then print
+			personOneFreeTimeList.sort(comparator);
+			personTwoFreeTimeList.sort(comparator);
+			System.out.println(personOneFreeTimeList);
+			System.out.println(personTwoFreeTimeList + "\n");
+			
+		}
 		else{
 			System.out.println("Exiting Program");
 			System.exit(0);

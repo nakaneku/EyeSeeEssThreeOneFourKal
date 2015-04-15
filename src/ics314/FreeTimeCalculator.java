@@ -30,9 +30,16 @@ public class FreeTimeCalculator {
 		return a + b;
 	}
 	
-	public void run(String[] args){
-		String[] filenames = args;
+	public void run(String[] args){		
+		//Call mark algorithm pass icsEvents
+		//get back list of ics free time Events and pass to writefree time.
+		List<ICSEvent> icsEvents = convertFilenameToICSEvent(args);
+		icsEvents = TesterClass.freeTime(icsEvents);
+		writeFreeTime(icsEvents);
 		
+	}
+	
+	public List<ICSEvent> convertFilenameToICSEvent(String[] filenames) {
 
 		List<HashMap<String, String>> events = new ArrayList<HashMap<String,String>>();
 		timezone = getTimeZone(parse(filenames[0])); //Gets the properties from the first event and gets the timezone
@@ -61,18 +68,10 @@ public class FreeTimeCalculator {
 			ie.eventProps = event;
 			icsEvents.add(ie);
 			
-			System.out.println(ie);
-			System.out.println();
-			
-			
+			//System.out.println(ie);
+			//System.out.println();	
 		}
-		
-		//Call mark algorithm pass icsEvents
-		//get back list of ics free time Events and pass to writefree time.
-		
-		icsEvents = TesterClass.freeTime(icsEvents);
-		writeFreeTime(icsEvents);
-		
+		return icsEvents;
 	}
 	
 	public String eventPropertyToString(HashMap<String,String> eventPropMap){
