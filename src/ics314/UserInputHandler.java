@@ -150,8 +150,8 @@ public class UserInputHandler {
 			System.out.println(personOneFreeTimeList);
 			System.out.println(personTwoFreeTimeList + "\n");
 			
-			List<ICSEvent> p1BusyTime = TesterClass.freeTime(personOneFreeTimeList);
-			List<ICSEvent> p2BusyTime = TesterClass.freeTime(personTwoFreeTimeList);
+			List<ICSEvent> p1BusyTime = FreeTimeCalculator.freeTime(personOneFreeTimeList);
+			List<ICSEvent> p2BusyTime = FreeTimeCalculator.freeTime(personTwoFreeTimeList);
 			
 			List<ICSEvent> combinedBusyTime = combineList(p1BusyTime, p2BusyTime);
 //			combinedBusyTime.addAll(p1BusyTime);
@@ -159,7 +159,7 @@ public class UserInputHandler {
 			System.out.println(combinedBusyTime);
 			combinedBusyTime.sort(comparator);
 			System.out.println(combinedBusyTime);
-			List<ICSEvent> combinedFreeTime = TesterClass.freeTime(combinedBusyTime);
+			List<ICSEvent> combinedFreeTime = FreeTimeCalculator.freeTime(combinedBusyTime);
 			System.out.println(combinedFreeTime);
 			ftcalc.writeFreeTime(combinedFreeTime, "MutualFreeTimes");
 			

@@ -5,12 +5,12 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class ICSEvent {
-	Calendar start;
-	Calendar end;
-	String tmz;
-	HashMap<String,String> eventProps;
-	String DMSTART;
-	String DMEND;
+	public Calendar start;
+	public Calendar end;
+	public String tmz;
+	public HashMap<String,String> eventProps;
+	public String DMSTART;
+	public String DMEND;
 	
 	public ICSEvent(Calendar start, Calendar end) {
 		this.start = start;

@@ -1,6 +1,8 @@
-package ics314;
+package tests;
 
 import static org.junit.Assert.*;
+import ics314.FreeTimeCalculator;
+import ics314.ICSEvent;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
