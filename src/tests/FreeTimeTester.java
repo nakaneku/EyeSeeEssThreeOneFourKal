@@ -130,6 +130,7 @@ public class FreeTimeTester {
 		input.add(e1);
 		input.add(e2);
 		
+		input.sort(new CalComparator());
 		List<ICSEvent> alternateTimes = FreeTimeCalculator.freeTime(input);
 		
 		ICSEvent o1 = alternateTimes.remove(0);
