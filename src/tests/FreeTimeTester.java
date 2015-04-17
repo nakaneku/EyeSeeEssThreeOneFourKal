@@ -1,11 +1,13 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import ics314.FreeTimeCalculator;
 import ics314.ICSEvent;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -108,4 +110,30 @@ public class FreeTimeTester {
 		  Calendar testCal1 = new GregorianCalendar(2016,0,01,21,0,0);
 		  assertEquals(testCal1, ICSEvent.convertICSDateToCal(icsDate));
 		 }
+	
+	@Test
+	public void AlternateTimeTestEventPartialOverlap(){
+		Calendar event1Start =   new GregorianCalendar(2015, 3, 1, 5, 0, 0);
+		Calendar event1End = new GregorianCalendar(2015, 3, 1, 10, 0, 0); //Apr 2
+		
+		Calendar event2Start =   new GregorianCalendar(2015, 3, 1, 8, 0, 0);
+		Calendar event2End = new GregorianCalendar(2015, 3, 1, 15, 0, 0); //Apr 2
+
+		
+		ICSEvent e1 = new ICSEvent(event1Start, event1End);
+		ICSEvent e2 = new ICSEvent(event2Start, event2End);
+		
+		List<ICSEvent> input = new ArrayList<ICSEvent>();
+		input.add(e1);
+		input.add(e2);
+		
+		List<ICSEvent> alternateTimes = FreeTimeCalculator.freeTime(input);
+		
+		ICSEvent o1 = alternateTimes.remove(0);
+		assertEquals(o1.toString(), "Wed Apr 01 00:00:00 HST 2015 - Wed Apr 01 05:00:00 HST 2015");
+		ICSEvent o2 = alternateTimes.remove(0);
+		assertEquals(o2.toString(), "Wed Apr 01 15:00:00 HST 2015 - Wed Apr 01 23:59:59 HST 2015");
+
+	}
+	
 }
