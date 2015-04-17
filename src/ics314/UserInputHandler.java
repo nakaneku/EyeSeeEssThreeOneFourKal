@@ -156,11 +156,11 @@ public class UserInputHandler {
 			List<ICSEvent> combinedBusyTime = combineList(p1BusyTime, p2BusyTime);
 //			combinedBusyTime.addAll(p1BusyTime);
 //			combinedBusyTime.addAll(p2BusyTime);
-			
+			System.out.println(combinedBusyTime);
 			combinedBusyTime.sort(comparator);
-			
+			System.out.println(combinedBusyTime);
 			List<ICSEvent> combinedFreeTime = TesterClass.freeTime(combinedBusyTime);
-			
+			System.out.println(combinedFreeTime);
 			ftcalc.writeFreeTime(combinedFreeTime, "MutualFreeTimes");
 			
 		}

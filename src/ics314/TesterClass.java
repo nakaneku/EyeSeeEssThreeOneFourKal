@@ -62,12 +62,56 @@ public class TesterClass {
 
 		while (list.size() > 1) {
 			if (list.get(0).end.get(Calendar.HOUR_OF_DAY) >= list.get(1).start.get(Calendar.HOUR_OF_DAY)) {
-				list.add(0, new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).start.get(Calendar.HOUR_OF_DAY), 
-						list.get(0).start.get(Calendar.MINUTE), list.get(0).start.get(Calendar.SECOND)), 
-						new GregorianCalendar(year, month, day, list.get(1).end.get(Calendar.HOUR_OF_DAY), 
-						list.get(1).end.get(Calendar.MINUTE), list.get(1).end.get(Calendar.SECOND))));
-				list.remove(2);
-				list.remove(1);
+				if (list.get(0).end.get(Calendar.HOUR_OF_DAY) < list.get(1).end.get(Calendar.HOUR_OF_DAY)) {
+					list.add(0, new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).start.get(Calendar.HOUR_OF_DAY), 
+							list.get(0).start.get(Calendar.MINUTE), list.get(0).start.get(Calendar.SECOND)), 
+							new GregorianCalendar(year, month, day, list.get(1).end.get(Calendar.HOUR_OF_DAY), 
+									list.get(1).end.get(Calendar.MINUTE), list.get(1).end.get(Calendar.SECOND))));
+					list.remove(2);
+					list.remove(1);
+				}
+				else if (list.get(0).end.get(Calendar.HOUR_OF_DAY) == list.get(1).start.get(Calendar.HOUR_OF_DAY)) {
+					if (list.get(0).end.get(Calendar.MINUTE) == list.get(1).start.get(Calendar.MINUTE)) {
+						if (list.get(0).end.get(Calendar.SECOND) < list.get(1).start.get(Calendar.SECOND)) {
+							list.add(0, new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).start.get(Calendar.HOUR_OF_DAY), 
+									list.get(0).start.get(Calendar.MINUTE), list.get(0).start.get(Calendar.SECOND)), 
+									new GregorianCalendar(year, month, day, list.get(1).end.get(Calendar.HOUR_OF_DAY), 
+											list.get(1).end.get(Calendar.MINUTE), list.get(1).end.get(Calendar.SECOND))));
+							list.remove(2);
+							list.remove(1);
+						} else {
+							list.add(0, new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).start.get(Calendar.HOUR_OF_DAY), 
+									list.get(0).start.get(Calendar.MINUTE), list.get(0).start.get(Calendar.SECOND)), 
+									new GregorianCalendar(year, month, day, list.get(0).end.get(Calendar.HOUR_OF_DAY), 
+											list.get(0).end.get(Calendar.MINUTE), list.get(0).end.get(Calendar.SECOND))));
+							list.remove(2);
+							list.remove(1);
+						}
+					} else if (list.get(0).end.get(Calendar.MINUTE) < list.get(1).start.get(Calendar.MINUTE)) {
+						list.add(0, new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).start.get(Calendar.HOUR_OF_DAY), 
+								list.get(0).start.get(Calendar.MINUTE), list.get(0).start.get(Calendar.SECOND)), 
+								new GregorianCalendar(year, month, day, list.get(1).end.get(Calendar.HOUR_OF_DAY), 
+										list.get(1).end.get(Calendar.MINUTE), list.get(1).end.get(Calendar.SECOND))));
+						list.remove(2);
+						list.remove(1);
+					} else {
+						list.add(0, new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).start.get(Calendar.HOUR_OF_DAY), 
+								list.get(0).start.get(Calendar.MINUTE), list.get(0).start.get(Calendar.SECOND)), 
+								new GregorianCalendar(year, month, day, list.get(0).end.get(Calendar.HOUR_OF_DAY), 
+										list.get(0).end.get(Calendar.MINUTE), list.get(0).end.get(Calendar.SECOND))));
+						list.remove(2);
+						list.remove(1);
+					}					
+				}
+				else {
+					list.add(0, new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).start.get(Calendar.HOUR_OF_DAY), 
+							list.get(0).start.get(Calendar.MINUTE), list.get(0).start.get(Calendar.SECOND)), 
+							new GregorianCalendar(year, month, day, list.get(0).end.get(Calendar.HOUR_OF_DAY), 
+									list.get(0).end.get(Calendar.MINUTE), list.get(0).end.get(Calendar.SECOND))));
+					list.remove(2);
+					list.remove(1);
+				}
+					
 			} else {
 				rlist.add(new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).end.get(Calendar.HOUR_OF_DAY), 
 						list.get(0).end.get(Calendar.MINUTE), list.get(0).end.get(Calendar.SECOND)), 
@@ -77,9 +121,12 @@ public class TesterClass {
 			}
 		}
 		if(list.get(0).end.get(Calendar.HOUR_OF_DAY) < 24) {
+			if(list.get(0).end.get(Calendar.HOUR_OF_DAY) == 23 && list.get(0).end.get(Calendar.MINUTE) == 59 && list.get(0).end.get(Calendar.SECOND) == 59) {
+				return rlist;
+			}
 			rlist.add(new ICSEvent(new GregorianCalendar(year, month, day, list.get(0).end.get(Calendar.HOUR_OF_DAY), 
 					list.get(0).end.get(Calendar.MINUTE), list.get(0).end.get(Calendar.SECOND)), 
-					new GregorianCalendar(year, month, day, 24, 0, 0)));
+					new GregorianCalendar(year, month, day, 23, 59, 59)));
 		}
 		return rlist;
 	}
