@@ -48,7 +48,7 @@ public class UserInputHandler {
 		String s = "1) Create a new Event\n"
 				+ "2) Print OutputFile\n"
 				+ "3) Test print\n"
-				+ "4) Find free time, not implemented\n"
+				+ "4) Find free time\n"
 				+ "5) Find mutual free times\n"
 				+ "6) Exit Program\n";
 		System.out.println(s);
@@ -129,6 +129,13 @@ public class UserInputHandler {
 			System.out.println("SUMMARY:" + summary);
 			System.out.println("PRIORITY:" + priority);
 			System.out.println("CLASS:" + classification);
+		}
+		else if(option.equals(4)){
+			System.out.println("Enter busy time ics files separated by space\n");
+			String busyTimes = scan.nextLine();
+			String[] busyTimesSeparated = busyTimes.split(" ");
+			ftcalc.findFreeTimes(busyTimesSeparated);
+			System.out.println("Your Free Time Files have been generated named as freetimeX.ics\n\n");
 		}
 		
 		else if(option.equals(5)) {

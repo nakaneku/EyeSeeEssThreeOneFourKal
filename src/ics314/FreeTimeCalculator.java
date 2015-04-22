@@ -23,7 +23,7 @@ public class FreeTimeCalculator {
 		//Check for invalid filenames
 		
 		FreeTimeCalculator ftc = new FreeTimeCalculator();
-		ftc.run(args); //Just to get out of static context
+		ftc.findFreeTimes(args); //Just to get out of static context
 		
 	}
 	
@@ -31,7 +31,7 @@ public class FreeTimeCalculator {
 		return a + b;
 	}
 	
-	public void run(String[] args){		
+	public void findFreeTimes(String[] args){		
 		//Call mark algorithm pass icsEvents
 		//get back list of ics free time Events and pass to writefree time.
 		List<ICSEvent> icsEvents = convertFilenameToICSEvent(args);
