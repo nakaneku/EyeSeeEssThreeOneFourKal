@@ -3,6 +3,7 @@ package ics314;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -68,14 +69,24 @@ public class UserInputHandler {
 		
 		if(option.equals(1)){
 			System.out.println("--Enter new event information--");
-			scan.nextLine(); //extra newline somewhere that was messing up input
 			
 			System.out.print("Start Date(mmddyyyy): ");
 			startDate = scan.nextLine();
+			while(!isDate(startDate)) {
+				System.out.print("Start Date(mmddyyyy): ");
+				startDate = scan.nextLine();
+			}
+				
 			System.out.print("Start Time(24hr, 4 digits) ####: ");    //8 AM = 0800
 			startTime = scan.nextLine();
+			
 			System.out.print("End Date(mmddyyyy): ");
 			endDate = scan.nextLine();
+			while(!isDate(endDate)) {
+				System.out.print("End Date(mmddyyyy); ");
+				endDate = scan.nextLine();
+			}
+			
 			System.out.print("End Time(24hr, 4 digits) ####: ");    
 			endTime = scan.nextLine();
 			dtstart = (startDate.substring(4, 8) + startDate.substring(0,2) + startDate.substring(2,4) + "T" + startTime + "00Z");
@@ -180,5 +191,26 @@ public class UserInputHandler {
 			combined.add(e);
 		}
 		return combined;
+	}
+	
+	//mmddyyyy
+	private boolean isDate(String date) { 
+		try {
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setLenient(false); 
+			cal.set(GregorianCalendar.YEAR, Integer.valueOf(date.substring(4,8)));
+			cal.set(GregorianCalendar.MONTH, Integer.valueOf(date.substring(0,2)) - 1); //Months are 0-11
+			cal.set(GregorianCalendar.DATE, Integer.valueOf(date.substring(2,4)));
+			
+			cal.getTime(); //throws exception if any field invalid
+			
+			if (Integer.valueOf(date) != null) { //no letters entered
+				return true;
+		}
+		}
+		catch (Exception e){
+			System.out.println("Enter a correct date format!\n");
+		}
+		return false;
 	}
 }
