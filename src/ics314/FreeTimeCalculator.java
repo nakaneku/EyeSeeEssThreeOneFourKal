@@ -124,7 +124,7 @@ public class FreeTimeCalculator {
 		return null; //handle error here.
 	}
 	
-	public String generateUID(){
+	public static String generateUID(){
 		String UID = "";
 		Calendar cal = Calendar.getInstance();
 		UID = "GRAPES";

@@ -17,6 +17,7 @@ public class UserInputHandler {
 	private String tmz;
 	private FreeTimeCalculator ftcalc;
 	private CalComparator comparator;
+	private int numICSFilesCreated = 0;
 	
 	public static void main(String[] args) {
 		UserInputHandler userInputHandler = new UserInputHandler();
@@ -46,11 +47,9 @@ public class UserInputHandler {
 
 	private void printMainOptions(){
 		String s = "1) Create a new Event\n"
-				+ "2) Print OutputFile\n"
-				+ "3) Test print\n"
-				+ "4) Find free time\n"
-				+ "5) Find mutual free times\n"
-				+ "6) Exit Program\n";
+				+ "2) Find free time\n"
+				+ "3) Find mutual free times\n"
+				+ "4) Exit Program\n";
 		System.out.println(s);
 		System.out.print("Select an option: ");
 	}
@@ -58,6 +57,33 @@ public class UserInputHandler {
 	private Integer parseUserInput(String input){
 		Integer option = Integer.parseInt(input);
 		return option;
+	}
+	
+	private void createOutputFile(){
+		String outputName = "calinput" + numICSFilesCreated + ".ics";
+		try {
+			 
+			PrintWriter writer = new PrintWriter("calinput" + numICSFilesCreated++ + ".ics");
+			
+			writer.println("BEGIN:VCALENDAR");
+			writer.println("VERSION:2.0");
+			writer.println("BEGIN:VEVENT");
+			writer.println("DTSTART;TZID=" + tmz + ":" + dtstart);
+			writer.println("DTEND;TZID=" + tmz + ":" + dtend);
+			String uid = ftcalc.generateUID();
+			writer.println("UID:" + uid);
+			writer.println("LOCATION:" + location);
+			writer.println("SUMMARY:" + summary);
+			writer.println("PRIORITY:" + priority);
+			writer.println("CLASS:" + classification);
+			writer.println("END:VEVENT");
+			writer.println("END:VCALENDAR");
+			writer.close();
+	 
+	    	} catch (IOException e) {
+		      e.printStackTrace();
+		}
+		System.out.println("Calendar file : " + outputName + " Created");
 	}
 	
 	private void processUserInput(Integer option){
@@ -96,41 +122,12 @@ public class UserInputHandler {
 			if (timeZone.equals(1)) {
 				tmz = "Pacific/Honolulu";
 			}
+			createOutputFile();
+			System.out.println("Press Enter to Continue\n");
+			scan.nextLine();
 		}
-		
+
 		else if(option.equals(2)){
-			try {
-				 
-				PrintWriter writer = new PrintWriter("calinput.ics");
-				
-				writer.println("BEGIN:VCALENDAR");
-				writer.println("VERSION:2.0");
-				writer.println("BEGIN:VEVENT");
-				writer.println("DTSTART;TZID=" + tmz + ":" + dtstart);
-				writer.println("DTEND;TZID=" + tmz + ":" + dtend);
-				writer.println("UID:6r3rq0kvkq1ue4jlv5f71c1dr8@google.com");
-				writer.println("LOCATION:" + location);
-				writer.println("SUMMARY:" + summary);
-				writer.println("PRIORITY:" + priority);
-				writer.println("CLASS:" + classification);
-				writer.println("END:VEVENT");
-				writer.println("END:VCALENDAR");
-				writer.close();
-		 
-		    	} catch (IOException e) {
-			      e.printStackTrace();
-			}
-		}
-		
-		else if(option.equals(3)){
-			System.out.println("DTSTART;TZID=" + tmz + ":" + dtstart);
-			System.out.println("DTEND;TZID=" + tmz + ":" + dtend);
-			System.out.println("LOCATION:" + location);
-			System.out.println("SUMMARY:" + summary);
-			System.out.println("PRIORITY:" + priority);
-			System.out.println("CLASS:" + classification);
-		}
-		else if(option.equals(4)){
 			System.out.println("Enter busy time ics files separated by space\n");
 			String busyTimes = scan.nextLine();
 			String[] busyTimesSeparated = busyTimes.split(" ");
@@ -138,7 +135,7 @@ public class UserInputHandler {
 			System.out.println("Your Free Time Files have been generated named as freetimeX.ics\n\n");
 		}
 		
-		else if(option.equals(5)) {
+		else if(option.equals(3)) {
 			//Person one files
 			System.out.println("Enter person 1's free time files(separate by single space): ");
 			String personOneFreeTimes = scan.nextLine();
