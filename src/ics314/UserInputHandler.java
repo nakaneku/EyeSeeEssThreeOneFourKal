@@ -89,34 +89,25 @@ public class UserInputHandler {
 	}
 	
 	private String getTime() {
-		String time = scan.nextLine();
-		if (time.length() != 4) {
-			System.out.println("Enter a 4 digit number:");
-			return getTime();
-		} 
-		String a = time.substring(0, 1);
-		String b = time.substring(1, 2);
-		String c = time.substring(2, 3);
-		String d = time.substring(3, 4);
-		try {
-			if (Integer.parseInt(a) > 2 || Integer.parseInt(a) < 0) {
-				System.out.println("Incorrect hour, Enter a 4 digit number:");
-				return getTime();
-			} else if (Integer.parseInt(b) > 4 || Integer.parseInt(b) < 0) {
-				System.out.println("Incorrect hour, Enter a 4 digit number:");
-				return getTime();
-			} else if (Integer.parseInt(c) > 5 || Integer.parseInt(c) < 0) {
-				System.out.println("Incorrect minute, Enter a 4 digit number:");
-				return getTime();
-			} else if (Integer.parseInt(d) > 9 || Integer.parseInt(d) < 0) {
-				System.out.println("Incorrect minute, Enter a 4 digit number:");
-				return getTime();
+		while (true) {
+			String time = scan.nextLine();
+			if (time.length() != 4) {
+				System.out.println("Enter a 4 digit number:");
 			} else {
-				return time;
+				String a = time.substring(0, 2);
+				String b = time.substring(2, 4);
+				try {
+					if (Integer.parseInt(a) > 23 || Integer.parseInt(a) < 0) {
+						System.out.println("Incorrect hour, Enter a 4 digit number:");
+					} else if (Integer.parseInt(b) > 59 || Integer.parseInt(b) < 0) {
+						System.out.println("Incorrect minute, Enter a 4 digit number:");
+					} else {
+						return time;
+					}
+				} catch (Exception e) {
+					System.out.println("Enter a 4 digit number:");
+				}
 			}
-		} catch (Exception e) {
-			System.out.println("Enter a 4 digit number:");
-			return getTime();
 		}
 	}
 	
