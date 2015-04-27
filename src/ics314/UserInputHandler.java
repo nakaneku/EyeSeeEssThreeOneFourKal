@@ -144,12 +144,15 @@ public class UserInputHandler {
 				System.out.print("End Time(24hr, 4 digits) ####: ");    
 				endTime = getTime();
 				
-				start = ICSEvent.convertICSDateToCal(startDate + startTime+"00");
-				end = ICSEvent.convertICSDateToCal(endDate + endTime + "00");
+				dtstart = (startDate.substring(4, 8) + startDate.substring(0,2) + startDate.substring(2,4) + "T" + startTime + "00Z");
+				dtend = (endDate.substring(4, 8) + endDate.substring(0,2) + endDate.substring(2,4) + "T" + endTime + "00Z");
+				
+				start = ICSEvent.convertICSDateToCal(dtstart);
+				end = ICSEvent.convertICSDateToCal(dtend);
 				
 				endIsAfterStart = end.after(start);
 				if(!endIsAfterStart){
-					System.out.println("End Date/Time must be after Start Date/Time");
+					System.out.println("End Date/Time must be after Start Date/Time\n");
 				}
 				
 			}
