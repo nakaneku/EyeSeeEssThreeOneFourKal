@@ -3,6 +3,7 @@ package ics314;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
@@ -128,26 +129,41 @@ public class UserInputHandler {
 		if(option.equals(1)){
 			System.out.println("--Enter new event information--");
 			
-			System.out.print("Start Date(mmddyyyy): ");
-			startDate = scan.nextLine();
-			while(!isDate(startDate)) {
-				System.out.print("Start Date(mmddyyyy): ");
-				startDate = scan.nextLine();
-			}
-				
-			System.out.print("Start Time(24hr, 4 digits) ####: ");    //8 AM = 0800
-
-			startTime = getTime();
-
-			System.out.print("End Date(mmddyyyy): ");
-			endDate = scan.nextLine();
-			while(!isDate(endDate)) {
-				System.out.print("End Date(mmddyyyy); ");
-				endDate = scan.nextLine();
-			}
+			Calendar start;
+			Calendar end;
+			boolean endIsAfterStart = false;
 			
-			System.out.print("End Time(24hr, 4 digits) ####: ");    
-			endTime = getTime();
+			do{
+				
+				do
+				{
+					System.out.print("Start Date(mmddyyyy): ");
+					startDate = scan.nextLine();
+				}while(!isDate(startDate));
+					
+				System.out.print("Start Time(24hr, 4 digits) ####: ");    //8 AM = 0800
+	
+				startTime = getTime();
+
+				do {
+					System.out.print("End Date(mmddyyyy); ");
+					endDate = scan.nextLine();
+				}while(!isDate(endDate));
+				
+				System.out.print("End Time(24hr, 4 digits) ####: ");    
+				endTime = getTime();
+				
+				start = ICSEvent.convertICSDateToCal(startDate + startTime+"00");
+				end = ICSEvent.convertICSDateToCal(endDate + endTime + "00");
+				
+				endIsAfterStart = end.after(start);
+				if(!endIsAfterStart){
+					System.out.println("End Date/Time must be after Start Date/Time");
+				}
+				
+			}
+			while(!endIsAfterStart);
+			
 			dtstart = (startDate.substring(4, 8) + startDate.substring(0,2) + startDate.substring(2,4) + "T" + startTime + "00Z");
 			dtend = (endDate.substring(4, 8) + endDate.substring(0,2) + endDate.substring(2,4) + "T" + endTime + "00Z");
 
