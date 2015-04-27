@@ -88,7 +88,6 @@ public class UserInputHandler {
 	
 	private String getTime() {
 		String time = scan.nextLine();
-		System.out.println(time.length());
 		if (time.length() != 4) {
 			System.out.println("Enter a 4 digit number:");
 			return getTime();
@@ -111,7 +110,7 @@ public class UserInputHandler {
 				System.out.println("Incorrect minute, Enter a 4 digit number:");
 				return getTime();
 			} else {
-				return getTime();
+				return time;
 			}
 		} catch (Exception e) {
 			System.out.println("Enter a 4 digit number:");
