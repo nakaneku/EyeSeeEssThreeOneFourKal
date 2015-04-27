@@ -86,6 +86,39 @@ public class UserInputHandler {
 		System.out.println("Calendar file : " + outputName + " Created");
 	}
 	
+	private String getTime() {
+		String time = scan.nextLine();
+		System.out.println(time.length());
+		if (time.length() != 4) {
+			System.out.println("Enter a 4 digit number:");
+			return getTime();
+		} 
+		String a = time.substring(0, 1);
+		String b = time.substring(1, 2);
+		String c = time.substring(2, 3);
+		String d = time.substring(3, 4);
+		try {
+			if (Integer.parseInt(a) > 2 || Integer.parseInt(a) < 0) {
+				System.out.println("Incorrect hour, Enter a 4 digit number:");
+				return getTime();
+			} else if (Integer.parseInt(b) > 4 || Integer.parseInt(b) < 0) {
+				System.out.println("Incorrect hour, Enter a 4 digit number:");
+				return getTime();
+			} else if (Integer.parseInt(c) > 5 || Integer.parseInt(c) < 0) {
+				System.out.println("Incorrect minute, Enter a 4 digit number:");
+				return getTime();
+			} else if (Integer.parseInt(d) > 9 || Integer.parseInt(d) < 0) {
+				System.out.println("Incorrect minute, Enter a 4 digit number:");
+				return getTime();
+			} else {
+				return getTime();
+			}
+		} catch (Exception e) {
+			System.out.println("Enter a 4 digit number:");
+			return getTime();
+		}
+	}
+	
 	private void processUserInput(Integer option){
 		String startDate = "";
 		String startTime = "";
@@ -99,11 +132,11 @@ public class UserInputHandler {
 			System.out.print("Start Date(mmddyyyy): ");
 			startDate = scan.nextLine();
 			System.out.print("Start Time(24hr, 4 digits) ####: ");    //8 AM = 0800
-			startTime = scan.nextLine();
+			startTime = getTime();
 			System.out.print("End Date(mmddyyyy): ");
 			endDate = scan.nextLine();
 			System.out.print("End Time(24hr, 4 digits) ####: ");    
-			endTime = scan.nextLine();
+			endTime = getTime();
 			dtstart = (startDate.substring(4, 8) + startDate.substring(0,2) + startDate.substring(2,4) + "T" + startTime + "00Z");
 			dtend = (endDate.substring(4, 8) + endDate.substring(0,2) + endDate.substring(2,4) + "T" + endTime + "00Z");
 
