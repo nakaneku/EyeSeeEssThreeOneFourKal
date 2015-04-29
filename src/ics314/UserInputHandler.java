@@ -171,7 +171,7 @@ public class UserInputHandler {
 			System.out.print("Classification: ");
 			classification = scan.next().toUpperCase();
 			
-			System.out.println("[1] Pacific/Honolulu   [2] Not implemented");
+			System.out.println("[1] Pacific/Honolulu   [2] America/Denver\n[3] America/New_York   [4] Asia/Bangkok");
 			System.out.print("Select timezone: ");
 			Integer timeZone = scan.nextInt();
 			if (timeZone.equals(1)) {
