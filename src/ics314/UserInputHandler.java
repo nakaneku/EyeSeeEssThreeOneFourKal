@@ -190,7 +190,8 @@ public class UserInputHandler {
 			System.out.println("Your Free Time Files have been generated named as freetimeX.ics\n");
 			ftcalc.findFreeTimes(busyTimesSeparated);
 			
-			System.out.println("\n Press enter to continue\n");
+			System.out.println("\nPress enter to continue\n");
+			scan.nextLine();
 		}
 		
 		else if(option.equals(3)) {
