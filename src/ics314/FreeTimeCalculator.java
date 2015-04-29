@@ -139,20 +139,29 @@ public class FreeTimeCalculator {
 	
 	public void writeFreeTime(List<ICSEvent> events, String filePrefix){
 		int countFreeTimeEventNum = 0;
+		
+		String summary = "";
+		if(filePrefix.equals("MutualFreeTimes")){
+			summary = "POSSIBLE MEETING TIME";
+		}else{
+			summary = "Free Time";
+		}
 		for(ICSEvent event : events){
 			String tmz = timezone;
 			String dtstart = ICSEvent.calToStr(event.start);
 			String dtend = ICSEvent.calToStr(event.end);
 			String UID = generateUID();
 			
-			try(PrintWriter writer = new PrintWriter(filePrefix + countFreeTimeEventNum +".ics")) {
+			String filename = filePrefix + countFreeTimeEventNum + ".ics";
+			
+			try(PrintWriter writer = new PrintWriter(filename)) {
 				writer.println("BEGIN:VCALENDAR");
 				writer.println("VERSION:2.0");
 				writer.println("BEGIN:VEVENT");
 				writer.println("DTSTART;TZID=" + tmz + ":" + dtstart);
 				writer.println("UID:" + UID);
 				writer.println("DTEND;TZID=" + tmz + ":" + dtend);
-				writer.println("SUMMARY:" + "Free Time");
+				writer.println("SUMMARY:" + summary);
 				writer.println("END:VEVENT");
 				writer.println("END:VCALENDAR");
 			} catch (FileNotFoundException e) {
@@ -160,7 +169,9 @@ public class FreeTimeCalculator {
 				e.printStackTrace();
 			}
 			countFreeTimeEventNum++;
+			System.out.println(filename);	
 		}
+		
 	}
 	
 	public HashMap<String, String> parse(String filename){

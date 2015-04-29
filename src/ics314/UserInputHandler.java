@@ -37,6 +37,7 @@ public class UserInputHandler {
 		String userInput = "";
 		Integer userOption = null;
 		while(programIsRunning){
+			System.out.println("Team Grape Calendar App\n");
 			printMainOptions();
 			userInput = scan.next();
 			scan.nextLine();
@@ -186,8 +187,10 @@ public class UserInputHandler {
 			System.out.println("Enter busy time ics files separated by space\n");
 			String busyTimes = scan.nextLine();
 			String[] busyTimesSeparated = busyTimes.split(" ");
+			System.out.println("Your Free Time Files have been generated named as freetimeX.ics\n");
 			ftcalc.findFreeTimes(busyTimesSeparated);
-			System.out.println("Your Free Time Files have been generated named as freetimeX.ics\n\n");
+			
+			System.out.println("\n Press enter to continue\n");
 		}
 		
 		else if(option.equals(3)) {
@@ -206,21 +209,22 @@ public class UserInputHandler {
 			//Sort then print
 			personOneFreeTimeList.sort(comparator);
 			personTwoFreeTimeList.sort(comparator);
-			System.out.println(personOneFreeTimeList);
-			System.out.println(personTwoFreeTimeList + "\n");
+
 			
 			List<ICSEvent> p1BusyTime = FreeTimeCalculator.freeTime(personOneFreeTimeList);
 			List<ICSEvent> p2BusyTime = FreeTimeCalculator.freeTime(personTwoFreeTimeList);
 			
 			List<ICSEvent> combinedBusyTime = combineList(p1BusyTime, p2BusyTime);
-//			combinedBusyTime.addAll(p1BusyTime);
-//			combinedBusyTime.addAll(p2BusyTime);
-			System.out.println(combinedBusyTime);
+
 			combinedBusyTime.sort(comparator);
-			System.out.println(combinedBusyTime);
+
 			List<ICSEvent> combinedFreeTime = FreeTimeCalculator.freeTime(combinedBusyTime);
-			System.out.println(combinedFreeTime);
+
+			System.out.println("Your mutual free time event files have been created as MutualFreeTimeX.ics\n");
 			ftcalc.writeFreeTime(combinedFreeTime, "MutualFreeTimes");
+			
+			System.out.println("\nPress enter to continue\n");
+			scan.nextLine();
 			
 		}
 		else{
